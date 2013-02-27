@@ -13,7 +13,7 @@ import java.io.File;
  * @author vauvenal5
  */
 public class BitmapGenerator {
-    public static Bitmap getBitmorPath(String path){
+    public static Bitmap getBitmorPath(String path, int height, int width){
         File file = new File(path);
         Bitmap fileBitmap = null;
         
@@ -24,6 +24,7 @@ public class BitmapGenerator {
                          options.inSampleSize = 4;
 
                         fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                        fileBitmap = Bitmap.createScaledBitmap(fileBitmap, height, width, true);
                 } catch (Exception e) {
                         //todo: log when logining possible
                 }
