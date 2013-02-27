@@ -17,6 +17,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import org.sparkleshare.android.utils.BitmapGenerator;
 
 public class FileDetailsActivity extends ActionBarActivity {
 
@@ -36,24 +37,13 @@ public class FileDetailsActivity extends ActionBarActivity {
 
 		FileDetailsFragment fdFragment = (FileDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.filedetails_fragment);
 		ListEntryItem current = fdFragment.getCurrentListItem();
-		File file = new File(current.getFilePath());
 		String extension = MimeTypeMap.getFileExtensionFromUrl(current.getTitle());
+                        
+                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(current.getFilePath());
 
-		if (file.exists() && file.length() < 1000000) {
-			Bitmap fileBitmap;
-			try {
-				 BitmapFactory.Options options = new BitmapFactory.Options();
-				 options.inSampleSize = 4;
-				
-				fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-			} catch (Exception e) {
-				fileBitmap = null;
-			}
-
-			if (fileBitmap != null) {
-				ivFileIcon.setImageBitmap(fileBitmap);
-			}
-		}
+                if (fileBitmap != null) {
+                        ivFileIcon.setImageBitmap(fileBitmap);
+                }
 	}
 
 	public void buttonClick(View target) {

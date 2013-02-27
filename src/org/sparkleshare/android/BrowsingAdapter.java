@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import org.sparkleshare.android.utils.BitmapGenerator;
 
 public class BrowsingAdapter extends BaseAdapter {
 
@@ -98,21 +99,11 @@ public class BrowsingAdapter extends BaseAdapter {
 			viewHolder.icon.setImageResource(MimetypeChecker.getResIdforMimetype(item.getMimetype()));
 		}
                 
-                if (file.exists() && file.length() < 1000000) {
-			Bitmap fileBitmap;
-			try {
-				 BitmapFactory.Options options = new BitmapFactory.Options();
-				 options.inSampleSize = 4;
-				
-				fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-			} catch (Exception e) {
-				fileBitmap = null;
-			}
-
-			if (fileBitmap != null) {
-				viewHolder.icon.setImageBitmap(fileBitmap);
-			}
-		}
+                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(item.getFilePath());
+                
+                if (fileBitmap != null) {
+                        viewHolder.icon.setImageBitmap(fileBitmap);
+                }
                 
 		return view;
 	}
