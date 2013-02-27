@@ -11,6 +11,8 @@ import org.sparkleshare.android.utils.MimetypeChecker;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +97,23 @@ public class BrowsingAdapter extends BaseAdapter {
 		if (item.getMimetype() != null) {
 			viewHolder.icon.setImageResource(MimetypeChecker.getResIdforMimetype(item.getMimetype()));
 		}
+                
+                if (file.exists() && file.length() < 1000000) {
+			Bitmap fileBitmap;
+			try {
+				 BitmapFactory.Options options = new BitmapFactory.Options();
+				 options.inSampleSize = 4;
+				
+				fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+			} catch (Exception e) {
+				fileBitmap = null;
+			}
+
+			if (fileBitmap != null) {
+				viewHolder.icon.setImageBitmap(fileBitmap);
+			}
+		}
+                
 		return view;
 	}
 
