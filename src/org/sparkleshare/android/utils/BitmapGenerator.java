@@ -24,6 +24,7 @@ public class BitmapGenerator {
                          options.inSampleSize = 4;
 
                         fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                        
                         fileBitmap = Bitmap.createScaledBitmap(fileBitmap, height, width, true);
                 } catch (Exception e) {
                         //todo: log when logining possible

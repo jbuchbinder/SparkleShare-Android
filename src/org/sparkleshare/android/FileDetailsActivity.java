@@ -39,7 +39,7 @@ public class FileDetailsActivity extends ActionBarActivity {
 		ListEntryItem current = fdFragment.getCurrentListItem();
 		String extension = MimeTypeMap.getFileExtensionFromUrl(current.getTitle());
                         
-                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(current.getFilePath(), ivFileIcon.getHeight(), ivFileIcon.getWidth());
+                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(current.getFilePath(), ivFileIcon.getDrawable().getMinimumHeight(), ivFileIcon.getDrawable().getMinimumWidth());
 
                 if (fileBitmap != null) {
                         ivFileIcon.setImageBitmap(fileBitmap);
