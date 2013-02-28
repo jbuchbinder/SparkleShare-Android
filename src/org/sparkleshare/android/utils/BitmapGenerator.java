@@ -16,16 +16,21 @@ import java.io.File;
 public class BitmapGenerator {
     
     public enum ScalingMode{
-        preview(8), detail(2);
+        preview(8,64), detail(2,256);
         
         private int size;
+        private int scale;
         
-        private ScalingMode(int size){
+        private ScalingMode(int scale, int size){
             this.size = size;
         }
         
         public int getSize(){
             return this.size;
+        }
+        
+        public int getScale(){
+            return this.scale;
         }
     }
     
@@ -33,13 +38,27 @@ public class BitmapGenerator {
         File file = new File(path);
         Bitmap fileBitmap = null;
         
-        if (file.exists() && file.length() < 1000000) {
+        if (file.exists()) {
                 
                 try {
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = mode.getSize();
+                        //BitmapFactory.Options options = new BitmapFactory.Options();
+                        //options.inSampleSize = mode.getScale();
 
-                       fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                       //fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                       
+                       
+                       Bitmap origBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                       double factor = 0;
+                       
+                       if(origBitmap.getHeight() > origBitmap.getWidth()){
+                           factor = ((double) mode.getSize())/((double)origBitmap.getHeight());
+                           return Bitmap.createScaledBitmap(origBitmap, ((int)(factor*(double)origBitmap.getWidth())), mode.getSize(), true);
+                       }
+                       else{
+                           factor = ((double) mode.getSize())/((double)origBitmap.getWidth());
+                           return Bitmap.createScaledBitmap(origBitmap, mode.getSize(), ((int)(factor*(double)origBitmap.getHeight())), true);
+                       }
+                       
                 } catch (Exception e) {
                         //todo: log when logining possible
                 }
