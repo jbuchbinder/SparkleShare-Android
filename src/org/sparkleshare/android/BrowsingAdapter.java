@@ -99,7 +99,8 @@ public class BrowsingAdapter extends BaseAdapter {
 			viewHolder.icon.setImageResource(MimetypeChecker.getResIdforMimetype(item.getMimetype()));
 		}
                 
-                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(item.getFilePath(), viewHolder.icon.getDrawable().getMinimumHeight(), viewHolder.icon.getDrawable().getMinimumWidth());
+                //Bitmap fileBitmap = BitmapGenerator.getBitmorPath(item.getFilePath(), viewHolder.icon.getDrawable().getMinimumHeight(), viewHolder.icon.getDrawable().getMinimumWidth());
+                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(item.getFilePath(), BitmapGenerator.ScalingMode.preview);
                 
                 if (fileBitmap != null) {
                         viewHolder.icon.setImageBitmap(fileBitmap);

@@ -50,6 +50,7 @@ import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.sparkleshare.android.utils.BitmapGenerator;
 
 public class FileDetailsFragment extends Fragment {
 
@@ -222,21 +223,11 @@ public class FileDetailsFragment extends Fragment {
 				File file = new File(current.getFilePath());
 				String extension = MimeTypeMap.getFileExtensionFromUrl(current.getTitle());
 
-				if (file.exists() && file.length() < 1000000) {
-					Bitmap fileBitmap;
-					try {
-						 BitmapFactory.Options options = new BitmapFactory.Options();
-						 options.inSampleSize = 4;
-						
-						fileBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-					} catch (Exception e) {
-						fileBitmap = null;
-					}
+                                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(file.getAbsolutePath(), BitmapGenerator.ScalingMode.detail);
 
-					if (fileBitmap != null) {
-						fileIcon.setImageBitmap(fileBitmap);
-					}
-				}
+                                if (fileBitmap != null) {
+                                        fileIcon.setImageBitmap(fileBitmap);
+                                }
 				
 			} else {
 				Toast.makeText(getActivity(), getString(R.string.downloading_failed), Toast.LENGTH_SHORT).show();
