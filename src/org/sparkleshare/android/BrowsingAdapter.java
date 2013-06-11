@@ -11,12 +11,15 @@ import org.sparkleshare.android.utils.MimetypeChecker;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import org.sparkleshare.android.utils.BitmapGenerator;
 
 public class BrowsingAdapter extends BaseAdapter {
 
@@ -95,6 +98,14 @@ public class BrowsingAdapter extends BaseAdapter {
 		if (item.getMimetype() != null) {
 			viewHolder.icon.setImageResource(MimetypeChecker.getResIdforMimetype(item.getMimetype()));
 		}
+                
+                //Bitmap fileBitmap = BitmapGenerator.getBitmorPath(item.getFilePath(), viewHolder.icon.getDrawable().getMinimumHeight(), viewHolder.icon.getDrawable().getMinimumWidth());
+                Bitmap fileBitmap = BitmapGenerator.getBitmorPath(item.getFilePath(), BitmapGenerator.ScalingMode.preview);
+                
+                if (fileBitmap != null) {
+                        viewHolder.icon.setImageBitmap(fileBitmap);
+                }
+                
 		return view;
 	}
 
