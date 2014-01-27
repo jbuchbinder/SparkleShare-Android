@@ -10,6 +10,7 @@ before_install:
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
   # Update proper Android SDKs
   - android update sdk --filter platform-tools,android-16,extra-android-support,android-17 --no-ui --force
+  - sudo apt-get update
   - sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch
   # Download and install Gradle
   - echo 'yes' | sudo add-apt-repository ppa:cwchien/gradle
