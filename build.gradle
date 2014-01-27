@@ -39,4 +39,10 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
+    // Ensure that lint errors don't kill the build
+    lintOptions {
+        abortOnError false
+    }
 }
+
